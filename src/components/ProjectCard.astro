@@ -1,0 +1,64 @@
+---
+import type { ProjectEntry } from "../content/types";
+
+interface Props {
+  project: ProjectEntry;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="project-card">
+  <header>
+    <h3>{project.company}</h3>
+    <p class="role">{project.role} · {project.period}</p>
+  </header>
+  <p class="context">{project.context}</p>
+  <ul class="achievements">
+    {project.achievements.map((item) => <li>{item}</li>)}
+  </ul>
+  <div class="stack">
+    {project.stack.map((tech) => <span class="tag">{tech}</span>)}
+  </div>
+</article>
+
+<style>
+  .project-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.25rem;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  h3 {
+    margin: 0 0 0.15rem;
+    font-size: 1.1rem;
+  }
+
+  .role {
+    margin: 0 0 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .context {
+    font-size: 0.95rem;
+  }
+
+  .achievements {
+    padding-left: 1.1rem;
+    font-size: 0.9rem;
+  }
+
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+  }
+</style>
