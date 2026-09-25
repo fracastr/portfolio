@@ -1,0 +1,45 @@
+---
+import type { SkillGroup } from "../content/types";
+
+interface Props {
+  heading: string;
+  groups: SkillGroup[];
+}
+
+const { heading, groups } = Astro.props;
+---
+
+<section class="container" data-reveal>
+  <h2>{heading}</h2>
+  <div class="skill-groups">
+    {groups.map((group) => (
+      <div class="skill-group">
+        <h3>{group.label}</h3>
+        <div class="items">
+          {group.items.map((item) => <span class="tag">{item}</span>)}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .skill-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .skill-group h3 {
+    font-size: 0.95rem;
+    margin: 0 0 0.5rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+</style>

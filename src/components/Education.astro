@@ -1,0 +1,31 @@
+---
+import type { EducationBlock } from "../content/types";
+
+interface Props {
+  heading: string;
+  education: EducationBlock;
+}
+
+const { heading, education } = Astro.props;
+---
+
+<section class="container" data-reveal>
+  <h2>{heading}</h2>
+  <p class="degree">{education.degree} — {education.institution}, {education.location}</p>
+  <ul class="certifications">
+    {education.certifications.map((item) => <li>{item}</li>)}
+  </ul>
+</section>
+
+<style>
+  .degree {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .certifications {
+    padding-left: 1.1rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+</style>
