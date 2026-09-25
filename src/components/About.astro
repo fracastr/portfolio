@@ -1,0 +1,18 @@
+---
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<section class="about container" data-reveal>
+  <p>{text}</p>
+</section>
+
+<style>
+  .about p {
+    font-size: 1.05rem;
+    max-width: 60ch;
+  }
+</style>
