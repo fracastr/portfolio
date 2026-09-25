@@ -25,7 +25,7 @@ export const en: SiteContent = {
       id: "opturion",
       company: "Opturion",
       role: "Software Engineer",
-      period: "2026",
+      period: "Apr – May 2026",
       context:
         "Opturion builds AI-driven optimization and decision-support software for logistics, transportation, and workforce planning. I joined their engineering team to ship features for intelligent scheduling and planning tools.",
       stack: ["PHP", "JavaScript", "AI decision-support"],
@@ -66,7 +66,7 @@ export const en: SiteContent = {
       id: "valio",
       company: "Valio",
       role: "Full Stack Software Engineer",
-      period: "2025",
+      period: "Jun 2025 – Feb 2026",
       context:
         "Valio delivers custom software for public-sector clients, where requirements are strict and compliance is non-negotiable.",
       stack: ["PHP (Laravel)", "React.js", "SQL Server"],
@@ -78,9 +78,9 @@ export const en: SiteContent = {
     },
   ],
   experience: [
-    { title: "Software Engineer", company: "Opturion", period: "Jan 2026 – May 2026", location: "Chile (Remote)" },
-    { title: "Senior / Full Stack Software Engineer", company: "Passline", period: "2025", location: "Chile" },
-    { title: "Full Stack Software Engineer", company: "Valio", period: "2025", location: "Chile" },
+    { title: "Software Engineer", company: "Opturion", period: "Apr 2026 – May 2026", location: "Chile (Remote)" },
+    { title: "Senior / Full Stack Software Engineer", company: "Passline", period: "Feb 2026 – Apr 2026", location: "Chile (Remote)" },
+    { title: "Full Stack Software Engineer", company: "Valio", period: "Jun 2025 – Feb 2026", location: "Chile (Remote)" },
     { title: "Senior Full Stack Software Engineer", company: "Sciplay (via Amber Studios)", period: "2022 – 2025", location: "Austin, TX (Remote)" },
     { title: "Full Stack Software Engineer", company: "Sondek (CMP Group projects)", period: "2022 – 2024", location: "Chile" },
     { title: "Software Developer", company: "Gisma", period: "2021 – 2022", location: "Santiago, Chile" },

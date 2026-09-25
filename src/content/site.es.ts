@@ -25,7 +25,7 @@ export const es: SiteContent = {
       id: "opturion",
       company: "Opturion",
       role: "Software Engineer",
-      period: "2026",
+      period: "Abr – May 2026",
       context:
         "Opturion desarrolla software de optimización y soporte de decisiones basado en IA para logística, transporte y planificación de personal. Me sumé al equipo de ingeniería para construir funcionalidades de scheduling y planificación inteligente.",
       stack: ["PHP", "JavaScript", "IA / soporte de decisiones"],
@@ -66,7 +66,7 @@ export const es: SiteContent = {
       id: "valio",
       company: "Valio",
       role: "Full Stack Software Engineer",
-      period: "2025",
+      period: "Jun 2025 – Feb 2026",
       context:
         "Valio entrega software a medida para clientes del sector público, donde los requisitos son estrictos y el cumplimiento normativo no es negociable.",
       stack: ["PHP (Laravel)", "React.js", "SQL Server"],
@@ -78,9 +78,9 @@ export const es: SiteContent = {
     },
   ],
   experience: [
-    { title: "Software Engineer", company: "Opturion", period: "Ene 2026 – May 2026", location: "Chile (Remoto)" },
-    { title: "Senior / Full Stack Software Engineer", company: "Passline", period: "2025", location: "Chile" },
-    { title: "Full Stack Software Engineer", company: "Valio", period: "2025", location: "Chile" },
+    { title: "Software Engineer", company: "Opturion", period: "Abr 2026 – May 2026", location: "Chile (Remoto)" },
+    { title: "Senior / Full Stack Software Engineer", company: "Passline", period: "Feb 2026 – Abr 2026", location: "Chile (Remoto)" },
+    { title: "Full Stack Software Engineer", company: "Valio", period: "Jun 2025 – Feb 2026", location: "Chile (Remoto)" },
     { title: "Senior Full Stack Software Engineer", company: "Sciplay (vía Amber Studios)", period: "2022 – 2025", location: "Austin, TX (Remoto)" },
     { title: "Full Stack Software Engineer", company: "Sondek (proyectos CMP Group)", period: "2022 – 2024", location: "Chile" },
     { title: "Desarrollador de Software", company: "Gisma", period: "2021 – 2022", location: "Santiago, Chile" },
