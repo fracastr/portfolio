@@ -1,0 +1,80 @@
+---
+import { getAlternateLocalePath } from "../lib/locale";
+import type { SectionLabels } from "../content/types";
+
+interface Props {
+  sections: SectionLabels;
+  currentLocale: "en" | "es";
+}
+
+const { sections, currentLocale } = Astro.props;
+const alternatePath = getAlternateLocalePath(Astro.url.pathname);
+const alternateLabel = currentLocale === "en" ? "ES" : "EN";
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href={currentLocale === "en" ? "/" : "/es/"}>Francisco Castro</a>
+    <nav>
+      <a href="#projects">{sections.projects}</a>
+      <a href="#experience">{sections.experience}</a>
+      <a href="#contact">{sections.contact}</a>
+      <a class="locale-toggle" href={alternatePath}>{alternateLabel}</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    border-bottom: 1px solid transparent;
+    z-index: 10;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .site-header.scrolled {
+    border-bottom-color: var(--border);
+  }
+
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 1rem;
+  }
+
+  .brand {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  nav {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .locale-toggle {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.15rem 0.5rem;
+    font-family: var(--font-mono);
+    color: var(--text);
+  }
+</style>
+
+<script>
+  const header = document.querySelector(".site-header");
+  addEventListener("scroll", () => {
+    header?.classList.toggle("scrolled", scrollY > 8);
+  });
+</script>
