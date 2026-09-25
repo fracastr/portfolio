@@ -35,6 +35,20 @@ export const es: SiteContent = {
       ],
     },
     {
+      id: "valio",
+      company: "Valio",
+      role: "Full Stack Software Engineer",
+      period: "Jun 2025 – Feb 2026",
+      context:
+        "Valio entrega software a medida para clientes del sector público, donde los requisitos son estrictos y el cumplimiento normativo no es negociable.",
+      stack: ["PHP (Laravel)", "React.js", "SQL Server"],
+      achievements: [
+        "Diseñé y entregué soluciones de software a medida para clientes del sector público usando PHP (Laravel), React.js y SQL Server.",
+        "Integré APIs de terceros para cumplir con requisitos gubernamentales estrictos.",
+        "Aseguré la calidad de código y el cumplimiento de las especificaciones del proyecto en un entorno regulado.",
+      ],
+    },
+    {
       id: "sciplay",
       company: "Sciplay (vía Amber Studios)",
       role: "Senior Full Stack Software Engineer",
@@ -60,20 +74,6 @@ export const es: SiteContent = {
         "Diseñé y construí sistemas de gestión de balance metalúrgico usando Python, PHP, Vue.js y Node.js.",
         "Integré APIs de Google Drive e infraestructura cloud de AWS para optimizar flujos de datos.",
         "Contribuí a decisiones de diseño de sistema y documentación técnica en múltiples proyectos de clientes.",
-      ],
-    },
-    {
-      id: "valio",
-      company: "Valio",
-      role: "Full Stack Software Engineer",
-      period: "Jun 2025 – Feb 2026",
-      context:
-        "Valio entrega software a medida para clientes del sector público, donde los requisitos son estrictos y el cumplimiento normativo no es negociable.",
-      stack: ["PHP (Laravel)", "React.js", "SQL Server"],
-      achievements: [
-        "Diseñé y entregué soluciones de software a medida para clientes del sector público usando PHP (Laravel), React.js y SQL Server.",
-        "Integré APIs de terceros para cumplir con requisitos gubernamentales estrictos.",
-        "Aseguré la calidad de código y el cumplimiento de las especificaciones del proyecto en un entorno regulado.",
       ],
     },
   ],

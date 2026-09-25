@@ -1,91 +1,130 @@
 :root {
-  --bg: #fafafa;
-  --text: #1a1a1a;
-  --text-muted: #555555;
-  --accent: #1d4ed8;
-  --border: #e2e2e2;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
-  --max-width: 720px;
+  --bg: #eceae4;
+  --ink: #141618;
+  --muted: #3c4450;
+  --line: #c8c4ba;
+  --amber: #8a5208;
+  --amber-mark: #e0a100;
+  --bar: rgb(236 234 228 / 0.72);
+  --menu: rgb(236 234 228 / 0.88);
+  --hover: rgb(20 22 24 / 0.045);
+  --wash-a: rgb(224 161 0 / 0.42);
+  --wash-b: rgb(90 98 108 / 0.38);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --font: "Barlow", "Avenir Next", "Segoe UI", sans-serif;
+  --cond: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --measure: 68ch;
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #111111;
-    --text: #f2f2f2;
-    --text-muted: #a8a8a8;
-    --accent: #7ea2ff;
-    --border: #2a2a2a;
-  }
+html[data-theme="dark"] {
+  --bg: #121416;
+  --ink: #eceae4;
+  --muted: #b4bcc4;
+  --line: #343a42;
+  --amber: #f0b429;
+  --amber-mark: #e0a100;
+  --bar: rgb(18 20 22 / 0.68);
+  --menu: rgb(18 20 22 / 0.86);
+  --hover: rgb(236 234 228 / 0.06);
+  --wash-a: rgb(224 161 0 / 0.34);
+  --wash-b: rgb(120 150 170 / 0.28);
+  color-scheme: dark;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html {
-  color-scheme: light dark;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 4.25rem;
+  background: var(--bg);
 }
 
 body {
   margin: 0;
+  color: var(--ink);
+  font-family: var(--font);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+  background: transparent;
+}
+
+.field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
   background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-sans);
-  line-height: 1.6;
 }
 
-.container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 1.5rem;
+.field span {
+  position: absolute;
+  display: block;
+  filter: blur(72px);
 }
 
-a {
-  color: var(--accent);
+.field span:first-child {
+  top: -8rem;
+  right: -6rem;
+  width: 28rem;
+  height: 22rem;
+  background: var(--wash-a);
 }
 
-section {
-  padding: 3rem 0;
-  border-top: 1px solid var(--border);
+.field span:last-child {
+  bottom: -10rem;
+  left: -8rem;
+  width: 34rem;
+  height: 24rem;
+  background: var(--wash-b);
 }
 
-section:first-of-type {
-  border-top: none;
+body > :not(.field) {
+  position: relative;
+  z-index: 1;
 }
 
-.tag {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.15rem 0.5rem;
-  color: var(--text-muted);
-}
-
-/*
- * [data-reveal] elements are hidden-then-revealed only when JavaScript is
- * available: the inline script in BaseLayout.astro's <head> adds the "js"
- * class to <html> before any content renders, and reveal.ts is the only
- * thing that ever adds "is-visible". Without JS (or if reveal.ts fails to
- * load), the "js" class is never added, so this rule never applies and
- * content is visible by default.
- */
-.js [data-reveal] {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
-}
-
-.js [data-reveal].is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .js [data-reveal] {
-    transition: none;
+@media (prefers-reduced-motion: no-preference) {
+  .field {
+    transition: background-color 200ms var(--ease-out);
   }
+
+  body {
+    transition: color 200ms var(--ease-out);
+  }
+}
+
+a { color: inherit; }
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+.shell {
+  width: min(1080px, calc(100% - 2.5rem));
+  margin: 0 auto;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  margin: 0 0 1rem;
+  font-family: var(--cond);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+section { padding: 4.25rem 0 0; }
+
+.prose {
+  max-width: var(--measure);
+  color: var(--muted);
+  font-size: 1.05rem;
 }

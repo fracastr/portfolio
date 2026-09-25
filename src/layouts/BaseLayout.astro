@@ -14,11 +14,42 @@ const { title, lang } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline>document.documentElement.classList.add("js");</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Barlow:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <title>{title}</title>
+    <script is:inline>
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem("theme");
+        } catch (e) {}
+        var theme =
+          stored === "dark" || stored === "light"
+            ? stored
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
   </head>
   <body>
+    <div class="field" aria-hidden="true">
+      <span></span>
+      <span></span>
+    </div>
+    <!--
+      THESIS: A nameplate. The page is a shop drawing: who, where, available, then the record. Refuses the orbiting moon and the narrow blue column.
+      OWN-WORLD: Aluminum ground, hairline rules, Barlow, one amber mark for what is live.
+      STORY: A recruiter reads the name and availability; a lead reads the plates below.
+      FIRST VIEWPORT: Name at display scale, title under it, a spec row for place and availability. No image, no orbit.
+      FORM: Industrial nameplate, requested after the space theme was rejected.
+      FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+    -->
     <slot />
-    <script src="../scripts/reveal.ts"></script>
   </body>
 </html>

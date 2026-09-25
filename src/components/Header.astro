@@ -12,81 +12,212 @@ const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith("/") ? rawBase : `${rawBase}/`;
 const alternatePath = getAlternateLocalePath(Astro.url.pathname);
 const alternateLabel = currentLocale === "en" ? "ES" : "EN";
+const aboutLabel = currentLocale === "en" ? "About" : "Sobre";
+const menuLabel = currentLocale === "en" ? "Index" : "Índice";
+const lightLabel = currentLocale === "en" ? "Light" : "Claro";
+const darkLabel = currentLocale === "en" ? "Dark" : "Oscuro";
+const themeLabel = currentLocale === "en" ? "Color mode" : "Modo de color";
+const educationNav = currentLocale === "en" ? "Education" : "Educación";
+const links = [
+  ["#about", aboutLabel],
+  ["#projects", sections.projects],
+  ["#experience", sections.experience],
+  ["#skills", sections.skills],
+  ["#education", educationNav],
+  ["#contact", sections.contact],
+] as const;
 ---
 
-<header class="site-header">
-  <div class="container header-inner">
-    <a class="brand" href={currentLocale === "en" ? base : `${base}es/`}>Francisco Castro</a>
-    <nav>
-      <a href="#projects">{sections.projects}</a>
-      <a href="#experience">{sections.experience}</a>
-      <a href="#contact">{sections.contact}</a>
-      <a class="locale-toggle" href={alternatePath}>{alternateLabel}</a>
+<header class="bar">
+  <div class="shell bar-inner">
+    <a class="brand" href={currentLocale === "en" ? base : `${base}es/`}>FC</a>
+    <button type="button" class="menu" aria-expanded="false" aria-controls="site-nav">{menuLabel}</button>
+    <nav id="site-nav">
+      {links.map(([href, label]) => <a href={href}>{label}</a>)}
+      <span class="controls">
+        <button type="button" class="theme" aria-pressed="false" aria-label={themeLabel}>
+          <span class="when-light">{lightLabel}</span>
+          <span class="when-dark">{darkLabel}</span>
+        </button>
+        <a class="locale" href={alternatePath}>{alternateLabel}</a>
+      </span>
     </nav>
   </div>
 </header>
 
 <style>
-  .site-header {
+  .bar {
     position: sticky;
     top: 0;
-    background: var(--bg);
-    border-bottom: 1px solid transparent;
     z-index: 10;
-    transition: border-color 0.2s ease, background 0.2s ease;
+    background: var(--bar);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--ink);
   }
 
-  .site-header.scrolled {
-    border-bottom-color: var(--border);
-  }
-
-  .header-inner {
+  .bar-inner {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding-block: 1rem;
+    gap: 1.25rem;
+    min-height: 3rem;
   }
 
   .brand {
-    color: var(--text);
     text-decoration: none;
+    font-family: var(--cond);
     font-weight: 600;
+    letter-spacing: 0.08em;
   }
+
+  .menu { display: none; }
 
   nav {
     display: flex;
-    gap: 1.25rem;
+    gap: 1.15rem;
+    margin-left: auto;
     align-items: center;
   }
 
-  nav a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.9rem;
+  nav a { white-space: nowrap; }
+
+  .controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-left: 0.35rem;
   }
 
-  .locale-toggle {
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.15rem 0.5rem;
-    font-family: var(--font-mono);
-    color: var(--text);
+  nav a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.92rem;
+    transition: color 160ms ease;
+  }
+
+  nav a[aria-current="true"] { color: var(--amber); }
+
+  .locale,
+  .theme {
+    border: 1px solid var(--ink);
+    padding: 0.1rem 0.4rem;
+    color: var(--ink);
+    background: transparent;
+    font: inherit;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: transform 140ms var(--ease-out), color 160ms ease;
+  }
+
+  .locale:active,
+  .theme:active { transform: scale(0.97); }
+
+  html:not([data-theme="dark"]) .when-dark,
+  html[data-theme="dark"] .when-light { display: none; }
+
+  @media (hover: hover) and (pointer: fine) {
+    nav a:hover { color: var(--ink); }
+  }
+
+  @media (max-width: 800px) {
+    .bar-inner { position: relative; flex-wrap: wrap; }
+    .menu {
+      display: inline-flex;
+      margin-left: auto;
+      border: 1px solid var(--ink);
+      background: transparent;
+      font: inherit;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer;
+      transition: transform 140ms var(--ease-out);
+    }
+    .menu:active { transform: scale(0.97); }
+    .controls { margin-left: 0; }
+    nav {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.55rem;
+      width: min(16rem, 100%);
+      padding: 0.8rem 1rem;
+      background: var(--menu);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--ink);
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      visibility: hidden;
+      transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
+    }
+    .bar[data-open] nav {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+      visibility: visible;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    nav, .locale, .theme, .menu { transition: none; transform: none; }
   }
 </style>
 
 <script>
-  const header = document.querySelector(".site-header");
-  addEventListener("scroll", () => {
-    header?.classList.toggle("scrolled", scrollY > 8);
-  });
+  const bar = document.querySelector<HTMLElement>(".bar");
+  const menu = document.querySelector<HTMLButtonElement>(".menu");
+  const nav = document.querySelector<HTMLElement>("#site-nav");
+  const toggleLink = document.querySelector<HTMLAnchorElement>(".locale");
+  const themeButton = document.querySelector<HTMLButtonElement>(".theme");
 
-  // Preserve the current section across the EN/ES locale toggle: if the
-  // user has scrolled to an anchored section, carry its hash over to the
-  // other language's page instead of always landing back at the top.
-  const toggleLink = document.querySelector<HTMLAnchorElement>(".locale-toggle");
-  toggleLink?.addEventListener("click", () => {
-    if (location.hash) {
-      toggleLink.href = toggleLink.href.split("#")[0] + location.hash;
+  const paintTheme = (theme: "light" | "dark") => {
+    document.documentElement.dataset.theme = theme;
+    themeButton?.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+  };
+
+  paintTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+
+  themeButton?.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    paintTheme(next);
+    try {
+      localStorage.setItem("theme", next);
+    } catch {
+      /* preference stays for this view */
     }
   });
+
+  menu?.addEventListener("click", () => {
+    const open = bar?.dataset.open !== "true";
+    if (bar) bar.dataset.open = open ? "true" : "";
+    menu.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  nav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (bar) bar.dataset.open = "";
+      menu?.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  toggleLink?.addEventListener("click", () => {
+    if (location.hash) toggleLink.href = toggleLink.href.split("#")[0] + location.hash;
+  });
+
+  const sections = [...document.querySelectorAll<HTMLElement>("section[id]")];
+  const links = [...document.querySelectorAll<HTMLAnchorElement>("#site-nav a[href^='#']")];
+  const mark = () => {
+    const line = scrollY + 96;
+    let current = "";
+    for (const section of sections) {
+      if (section.offsetTop <= line) current = section.id;
+    }
+    for (const link of links) {
+      if (link.getAttribute("href") === `#${current}`) link.setAttribute("aria-current", "true");
+      else link.removeAttribute("aria-current");
+    }
+  };
+  mark();
+  addEventListener("scroll", mark, { passive: true });
 </script>

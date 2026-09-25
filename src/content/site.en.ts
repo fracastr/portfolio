@@ -35,6 +35,20 @@ export const en: SiteContent = {
       ],
     },
     {
+      id: "valio",
+      company: "Valio",
+      role: "Full Stack Software Engineer",
+      period: "Jun 2025 – Feb 2026",
+      context:
+        "Valio delivers custom software for public-sector clients, where requirements are strict and compliance is non-negotiable.",
+      stack: ["PHP (Laravel)", "React.js", "SQL Server"],
+      achievements: [
+        "Designed and delivered custom software solutions for public-sector clients using PHP (Laravel), React.js, and SQL Server.",
+        "Integrated third-party APIs to meet strict government requirements.",
+        "Ensured code quality and adherence to project specifications in a regulated environment.",
+      ],
+    },
+    {
       id: "sciplay",
       company: "Sciplay (via Amber Studios)",
       role: "Senior Full Stack Software Engineer",
@@ -60,20 +74,6 @@ export const en: SiteContent = {
         "Architected and built metallurgical balance management systems using Python, PHP, Vue.js, and Node.js.",
         "Integrated Google Drive APIs and AWS cloud infrastructure to streamline data workflows.",
         "Contributed to system design decisions and technical documentation across multiple client projects.",
-      ],
-    },
-    {
-      id: "valio",
-      company: "Valio",
-      role: "Full Stack Software Engineer",
-      period: "Jun 2025 – Feb 2026",
-      context:
-        "Valio delivers custom software for public-sector clients, where requirements are strict and compliance is non-negotiable.",
-      stack: ["PHP (Laravel)", "React.js", "SQL Server"],
-      achievements: [
-        "Designed and delivered custom software solutions for public-sector clients using PHP (Laravel), React.js, and SQL Server.",
-        "Integrated third-party APIs to meet strict government requirements.",
-        "Ensured code quality and adherence to project specifications in a regulated environment.",
       ],
     },
   ],

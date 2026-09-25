@@ -18,8 +18,10 @@ import { es } from "../../content/site.es";
     title={es.profile.title}
     location={es.profile.location}
     availability={es.profile.availability}
+    placeLabel="Lugar"
+    statusLabel="Estado"
   />
-  <About text={es.about} />
+  <About text={es.about} heading="Sobre" />
   <Projects heading={es.sections.projects} projects={es.projects} />
   <ExperienceTimeline heading={es.sections.experience} entries={es.experience} />
   <Skills heading={es.sections.skills} groups={es.skills} />

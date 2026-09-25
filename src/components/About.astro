@@ -1,18 +1,12 @@
 ---
 interface Props {
   text: string;
+  heading: string;
 }
-
-const { text } = Astro.props;
+const { text, heading } = Astro.props;
 ---
 
-<section class="about container" data-reveal>
-  <p>{text}</p>
+<section id="about" class="shell">
+  <h2>{heading}</h2>
+  <p class="prose">{text}</p>
 </section>
-
-<style>
-  .about p {
-    font-size: 1.05rem;
-    max-width: 60ch;
-  }
-</style>

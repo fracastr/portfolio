@@ -11,20 +11,32 @@ interface Props {
 const { email, linkedin, location, availability, languages, contactHeading } = Astro.props;
 ---
 
-<footer id="contact" class="container">
+<footer id="contact" class="shell">
   <h2>{contactHeading}</h2>
-  <p><a href={`mailto:${email}`}>{email}</a></p>
-  <p><a href={linkedin} target="_blank" rel="noreferrer">{linkedin.replace("https://", "")}</a></p>
-  <p class="meta">{location} · {availability} · {languages.join(", ")}</p>
+  <p class="live">{availability}</p>
+  <div class="links">
+    <a href={`mailto:${email}`}>{email}</a>
+    <a href={linkedin} target="_blank" rel="noreferrer">{linkedin.replace("https://", "")}</a>
+  </div>
+  <p class="meta">{location} · {languages.join(" · ")}</p>
 </footer>
 
 <style>
   footer {
-    padding-bottom: 3rem;
+    padding-top: 4.25rem;
+    padding-bottom: 4.5rem;
   }
-
-  .meta {
-    color: var(--text-muted);
-    font-size: 0.85rem;
+  p { margin: 0; }
+  .live { margin-bottom: 0.9rem; color: var(--amber); font-weight: 600; }
+  .links { display: flex; flex-direction: column; align-items: flex-start; gap: 0.55rem; }
+  .meta { margin-top: 0.9rem; }
+  a {
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    transition: color 160ms ease, border-color 160ms ease;
   }
+  @media (hover: hover) and (pointer: fine) {
+    a:hover { color: var(--amber); border-color: var(--amber); }
+  }
+  .meta { color: var(--muted); }
 </style>
