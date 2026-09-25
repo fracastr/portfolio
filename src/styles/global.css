@@ -15,6 +15,7 @@
     --bg: #111111;
     --text: #f2f2f2;
     --text-muted: #a8a8a8;
+    --accent: #7ea2ff;
     --border: #2a2a2a;
   }
 }
@@ -25,6 +26,7 @@
 
 html {
   color-scheme: light dark;
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -63,19 +65,27 @@ section:first-of-type {
   color: var(--text-muted);
 }
 
-[data-reveal] {
+/*
+ * [data-reveal] elements are hidden-then-revealed only when JavaScript is
+ * available: the inline script in BaseLayout.astro's <head> adds the "js"
+ * class to <html> before any content renders, and reveal.ts is the only
+ * thing that ever adds "is-visible". Without JS (or if reveal.ts fails to
+ * load), the "js" class is never added, so this rule never applies and
+ * content is visible by default.
+ */
+.js [data-reveal] {
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
 }
 
-[data-reveal].is-visible {
+.js [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
+  .js [data-reveal] {
     transition: none;
   }
 }

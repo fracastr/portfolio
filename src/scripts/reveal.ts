@@ -25,7 +25,7 @@ function initScrollReveal() {
     // which fires inconsistently for a short paragraph like About vs.
     // a tall grid like Projects).
     // Note: this assumes there's always enough scrollable content below
-    // the last [data-reveal] section (currently Footer) for that
+    // the last [data-reveal] section (currently Education) for that
     // section's top edge to cross the shrunk -100px root. If a future
     // edit ever makes the trailing content very short, the last section
     // could stay permanently hidden on a short viewport.
