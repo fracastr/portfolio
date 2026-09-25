@@ -8,13 +8,15 @@ interface Props {
 }
 
 const { sections, currentLocale } = Astro.props;
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith("/") ? rawBase : `${rawBase}/`;
 const alternatePath = getAlternateLocalePath(Astro.url.pathname);
 const alternateLabel = currentLocale === "en" ? "ES" : "EN";
 ---
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href={currentLocale === "en" ? "/" : "/es/"}>Francisco Castro</a>
+    <a class="brand" href={currentLocale === "en" ? base : `${base}es/`}>Francisco Castro</a>
     <nav>
       <a href="#projects">{sections.projects}</a>
       <a href="#experience">{sections.experience}</a>
@@ -76,5 +78,15 @@ const alternateLabel = currentLocale === "en" ? "ES" : "EN";
   const header = document.querySelector(".site-header");
   addEventListener("scroll", () => {
     header?.classList.toggle("scrolled", scrollY > 8);
+  });
+
+  // Preserve the current section across the EN/ES locale toggle: if the
+  // user has scrolled to an anchored section, carry its hash over to the
+  // other language's page instead of always landing back at the top.
+  const toggleLink = document.querySelector<HTMLAnchorElement>(".locale-toggle");
+  toggleLink?.addEventListener("click", () => {
+    if (location.hash) {
+      toggleLink.href = toggleLink.href.split("#")[0] + location.hash;
+    }
   });
 </script>
