@@ -1,0 +1,29 @@
+---
+interface Props {
+  email: string;
+  linkedin: string;
+  location: string;
+  availability: string;
+  contactHeading: string;
+}
+
+const { email, linkedin, location, availability, contactHeading } = Astro.props;
+---
+
+<footer id="contact" class="container">
+  <h2>{contactHeading}</h2>
+  <p><a href={`mailto:${email}`}>{email}</a></p>
+  <p><a href={linkedin} target="_blank" rel="noreferrer">{linkedin.replace("https://", "")}</a></p>
+  <p class="meta">{location} · {availability}</p>
+</footer>
+
+<style>
+  footer {
+    padding-bottom: 3rem;
+  }
+
+  .meta {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>
