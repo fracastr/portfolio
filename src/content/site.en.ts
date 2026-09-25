@@ -93,7 +93,7 @@ export const en: SiteContent = {
     { label: "Cloud & DevOps", items: ["AWS", "GCP", "Docker", "Git", "Linux", "Bash"] },
   ],
   education: {
-    degree: "B.S. in Computer Science Engineering",
+    degree: "Computer Science Engineering",
     institution: "Universidad del Bío-Bío",
     location: "Concepción, Chile",
     certifications: [

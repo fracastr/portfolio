@@ -32,5 +32,7 @@ describe("site content", () => {
     expect(en.projects.length).toBe(es.projects.length);
     expect(en.experience.length).toBe(es.experience.length);
     expect(en.skills.length).toBe(es.skills.length);
+    expect(en.education.certifications.length).toBe(es.education.certifications.length);
+    expect(en.projects.map((p) => p.id)).toEqual(es.projects.map((p) => p.id));
   });
 });
