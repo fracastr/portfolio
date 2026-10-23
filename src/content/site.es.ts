@@ -102,11 +102,14 @@ export const es: SiteContent = {
     },
     {
       id: "minera",
-      name: "Balance metalúrgico",
-      kind: "Cliente · Minería (Sondek / CMP)",
-      description: "Sistema que digitaliza balances de masa de mineral de hierro por empresa, valle y proceso. Los operadores de planta suben planillas Excel y ajustan balances cada quince días.",
+      name: "Sondek",
+      kind: "Cliente · Minería · balances metalúrgicos",
+      domain: "sondek.cl",
+      url: "https://www.sondek.cl",
+      description: "Sistema que digitaliza balances de masa de mineral de hierro por empresa, valle y proceso para proyectos de CMP. Los operadores de planta suben planillas Excel y concilian toneladas y leyes cada quince días.",
       stack: ["Laravel", "Vue", "Python", "AWS"],
-      imageAlt: "Ilustración de la ecuación de balance de masa",
+      image: "minera.webp",
+      imageAlt: "Sitio de Sondek: balances metalúrgicos que cierran",
     },
     {
       id: "nutricion",

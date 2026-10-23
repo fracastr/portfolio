@@ -102,11 +102,14 @@ export const en: SiteContent = {
     },
     {
       id: "minera",
-      name: "Metallurgical balance",
-      kind: "Client · Mining (Sondek / CMP)",
-      description: "System that digitizes iron-ore mass balances by company, valley and process. Plant operators upload Excel files and adjust balances every two weeks.",
+      name: "Sondek",
+      kind: "Client · Mining · metallurgical balances",
+      domain: "sondek.cl",
+      url: "https://www.sondek.cl",
+      description: "A system that digitizes iron-ore mass balances by company, valley and process for CMP Group projects. Plant operators upload Excel files and reconcile tonnage and grades every two weeks.",
       stack: ["Laravel", "Vue", "Python", "AWS"],
-      imageAlt: "Mass balance equation illustration",
+      image: "minera.webp",
+      imageAlt: "Sondek website: metallurgical balances that close",
     },
     {
       id: "nutricion",
