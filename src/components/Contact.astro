@@ -1,0 +1,141 @@
+---
+import type { EducationBlock, Profile } from "../content/types";
+
+interface Props {
+  profile: Profile;
+  heading: string;
+  emphasis: string;
+  label: string;
+  educationHeading: string;
+  education: EducationBlock;
+  languagesLabel: string;
+}
+
+const { profile, heading, emphasis, label, educationHeading, education, languagesLabel } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<section id="education" class="shell section edu" aria-labelledby="education-title">
+  <div class="section-head">
+    <h2 id="education-title">{educationHeading}</h2>
+  </div>
+  <div class="edu-grid" data-reveal>
+    <div>
+      <p class="degree">{education.degree}</p>
+      <p class="mono">{education.institution} · {education.location}</p>
+      <p class="mono langs">{languagesLabel}: {profile.languages.join(" · ")}</p>
+    </div>
+    <ul>
+      {education.certifications.map((item) => <li class="serif">{item}</li>)}
+    </ul>
+  </div>
+</section>
+
+<section id="contact" class="shell contact-section" aria-labelledby="contact-title">
+  <div class="panel" data-reveal>
+    <h2 id="contact-title">
+      <span class="sr-only">{label}. </span>{heading} <em class="serif">{emphasis}</em>
+    </h2>
+    <ul class="links">
+      <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+      <li><a href={profile.linkedin} rel="me">linkedin.com/in/fracastr</a></li>
+      <li><a href={profile.github} rel="me">github.com/fracastr</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer class="shell foot">
+  <span class="mono">© {year} {profile.name} · {profile.location}</span>
+  <span class="mono">{profile.availability}</span>
+</footer>
+
+<style>
+  .edu { padding-top: 0; }
+
+  .edu-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 4rem;
+  }
+
+  .edu-grid > div { flex: 1 1 18rem; }
+  .edu-grid > ul { flex: 999 1 30rem; }
+
+  .degree {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  .edu-grid .mono { margin: 0.25rem 0 0; }
+  .langs { margin-top: 1rem !important; }
+
+  .edu-grid ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .edu-grid li {
+    font-size: 1.12rem;
+    color: var(--body);
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .contact-section { padding-bottom: clamp(3rem, 6vw, 5rem); }
+
+  .panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+    padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 4vw, 2.5rem);
+    background: var(--inv);
+    color: var(--inv-text);
+    border-radius: 4px;
+    transition: background-color 350ms var(--ease), color 350ms var(--ease);
+  }
+
+  h2 {
+    margin: 0;
+    max-width: 40rem;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.1;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  h2 em { color: var(--inv-accent); }
+
+  .links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 85%;
+    background-repeat: no-repeat;
+    transition: background-size 250ms var(--ease);
+  }
+
+  .links a:hover { background-size: 100% 1px; }
+
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-block: 0 2.5rem;
+  }
+</style>

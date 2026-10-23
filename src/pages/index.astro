@@ -1,37 +1,6 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Header from "../components/Header.astro";
-import Hero from "../components/Hero.astro";
-import About from "../components/About.astro";
-import Projects from "../components/Projects.astro";
-import ExperienceTimeline from "../components/ExperienceTimeline.astro";
-import Skills from "../components/Skills.astro";
-import Education from "../components/Education.astro";
-import Footer from "../components/Footer.astro";
+import Page from "../components/Page.astro";
 import { en } from "../content/site.en";
 ---
 
-<BaseLayout title={`${en.profile.name} — ${en.profile.title}`} lang="en">
-  <Header sections={en.sections} currentLocale="en" />
-  <Hero
-    name={en.profile.name}
-    title={en.profile.title}
-    location={en.profile.location}
-    availability={en.profile.availability}
-    placeLabel="Place"
-    statusLabel="Status"
-  />
-  <About text={en.about} heading="About" />
-  <Projects heading={en.sections.projects} projects={en.projects} />
-  <ExperienceTimeline heading={en.sections.experience} entries={en.experience} />
-  <Skills heading={en.sections.skills} groups={en.skills} />
-  <Education heading={en.sections.education} education={en.education} />
-  <Footer
-    email={en.profile.email}
-    linkedin={en.profile.linkedin}
-    location={en.profile.location}
-    availability={en.profile.availability}
-    languages={en.profile.languages}
-    contactHeading={en.sections.contact}
-  />
-</BaseLayout>
+<Page site={en} />

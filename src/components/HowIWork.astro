@@ -1,0 +1,132 @@
+---
+import type { SkillGroup } from "../content/types";
+
+interface Props {
+  heading: string;
+  about: string;
+  notes: string[];
+  skillsHeading: string;
+  skills: SkillGroup[];
+}
+
+const { heading, about, notes, skillsHeading, skills } = Astro.props;
+---
+
+<section id="about" class="shell section" aria-labelledby="about-title">
+  <div class="layout">
+    <div class="intro" data-reveal>
+      <h2 id="about-title">{heading}</h2>
+      <p class="serif">{about}</p>
+    </div>
+
+    <div class="detail">
+      <ul class="notes" data-reveal>
+        {notes.map((note) => (
+          <li>
+            <span>{note}</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="skills" data-reveal>
+        <h3 class="mono">{skillsHeading}</h3>
+        <dl>
+          {skills.map((group) => (
+            <div>
+              <dt class="mono">{group.label}</dt>
+              <dd>
+                <ul>
+                  {group.items.map((item) => <li class="tag">{item}</li>)}
+                </ul>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+  }
+
+  .intro {
+    flex: 1 1 18rem;
+  }
+
+  h2 {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.8rem, 3vw, 2.25rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .intro p {
+    margin: 0;
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--body);
+  }
+
+  .detail {
+    flex: 999 1 34rem;
+    min-width: 0;
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .notes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .notes li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.15rem 0.75rem;
+    border-bottom: 1px solid var(--rule);
+    font-size: 1.1rem;
+    transition: background-color 150ms var(--ease);
+  }
+
+  .notes li:hover { background: color-mix(in srgb, var(--elev) 60%, transparent); }
+  .notes .arrow { transition: transform 150ms var(--ease); }
+  .notes li:hover .arrow { transform: translateX(6px); }
+
+  .skills h3 { margin: 0 0 1rem; font-weight: 400; }
+
+  dl {
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  dl > div {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  dd { margin: 0; }
+
+  dd ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  @media (max-width: 560px) {
+    dl > div { grid-template-columns: 1fr; gap: 0.5rem; }
+  }
+</style>

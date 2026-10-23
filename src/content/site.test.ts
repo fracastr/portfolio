@@ -9,6 +9,13 @@ function assertContentShape(site: SiteContent) {
   expect(site.profile.linkedin).toContain("linkedin.com");
   expect(site.about.length).toBeGreaterThan(0);
   expect(site.projects.length).toBe(4);
+  expect(site.builds.length).toBe(7);
+  for (const build of site.builds) {
+    expect(build.name).not.toBe("");
+    expect(build.stack.length).toBeGreaterThan(0);
+    expect(build.imageAlt).not.toBe("");
+  }
+  expect(site.workNotes.length).toBe(4);
   for (const project of site.projects) {
     expect(project.company).not.toBe("");
     expect(project.stack.length).toBeGreaterThan(0);
@@ -34,5 +41,8 @@ describe("site content", () => {
     expect(en.skills.length).toBe(es.skills.length);
     expect(en.education.certifications.length).toBe(es.education.certifications.length);
     expect(en.projects.map((p) => p.id)).toEqual(es.projects.map((p) => p.id));
+    expect(en.builds.map((b) => [b.id, b.image, b.url, b.stack])).toEqual(
+      es.builds.map((b) => [b.id, b.image, b.url, b.stack]),
+    );
   });
 });

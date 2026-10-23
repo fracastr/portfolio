@@ -1,0 +1,125 @@
+---
+import type { ExperienceEntry } from "../content/types";
+
+interface Props {
+  heading: string;
+  entries: ExperienceEntry[];
+}
+
+const { heading, entries } = Astro.props;
+const startYear = (period: string) => period.match(/\d{4}/)?.[0] ?? "";
+---
+
+<section id="experience" class="shell log-section" aria-labelledby="experience-title">
+  <h2 id="experience-title" class="sr-only">{heading}</h2>
+  <div class="window themed" data-reveal>
+    <div class="chrome">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      <p>career — zsh</p>
+    </div>
+    <ol class="log">
+      <li class="cmd" aria-hidden="true"><span class="prompt">$</span> git log --since=2019 --format="%year %role @ %company"</li>
+      {
+        entries.map((entry, i) => (
+          <li style={`--i: ${i}`}>
+            <span class="year">{startYear(entry.period)}</span>
+            <span class="what">
+              {entry.title} <span class="at">@</span> <strong>{entry.company}</strong>
+            </span>
+            <span class="when">{entry.period} · {entry.location}</span>
+          </li>
+        ))
+      }
+      <li class="cmd" aria-hidden="true" style={`--i: ${entries.length}`}>
+        <span class="prompt">$</span> <span class="caret"></span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<style>
+  .log-section { padding-bottom: clamp(3rem, 6vw, 5rem); }
+
+  .window {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+  }
+
+  .chrome {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .chrome span {
+    width: 11px;
+    height: 11px;
+    border-radius: 999px;
+    background: var(--dot);
+  }
+
+  .chrome p {
+    flex: 1;
+    margin: 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding-right: 3rem;
+  }
+
+  .log {
+    list-style: none;
+    margin: 0;
+    padding: 1.25rem 1.5rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    overflow-x: auto;
+  }
+
+  .log li {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+    gap: 1rem;
+    padding-block: 0.3rem;
+    border-radius: 2px;
+  }
+
+  .log li:not(.cmd):hover { background: color-mix(in srgb, var(--elev) 70%, transparent); }
+
+  .log .cmd { display: block; }
+  .prompt { color: var(--green); }
+  .year { color: var(--amber); }
+  .at { color: var(--muted); }
+  .what strong { font-weight: 500; }
+  .when { color: var(--muted); white-space: nowrap; }
+
+  .caret {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    vertical-align: -2px;
+    background: currentColor;
+    animation: blink 1s steps(1) infinite;
+  }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Typed in line by line once the window scrolls into view. */
+  :global(.js) .window .log li {
+    opacity: 0;
+    transition: opacity 120ms linear;
+    transition-delay: calc(var(--i, 0) * 140ms + 200ms);
+  }
+
+  :global(.js) .window.is-visible .log li { opacity: 1; }
+
+  @media (max-width: 720px) {
+    .log li { grid-template-columns: 3rem minmax(0, 1fr); }
+    .when { grid-column: 2; white-space: normal; }
+  }
+</style>

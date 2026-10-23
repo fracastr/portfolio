@@ -1,78 +1,138 @@
 ---
+import type { HeroCopy, Profile } from "../content/types";
+
 interface Props {
-  name: string;
-  title: string;
-  location: string;
-  availability: string;
-  placeLabel: string;
-  statusLabel: string;
+  hero: HeroCopy;
+  profile: Profile;
 }
 
-const { name, title, location, availability, placeLabel, statusLabel } = Astro.props;
+const { hero, profile } = Astro.props;
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith("/") ? rawBase : `${rawBase}/`;
 ---
 
-<section class="plate shell" aria-label={name}>
-  <h1>{name}</h1>
-  <p class="role">{title}</p>
-  <dl>
-    <div>
-      <dt>{placeLabel}</dt>
-      <dd>{location}</dd>
+<section class="hero shell" aria-labelledby="hero-title">
+  <div class="copy">
+    <p class="mono rise" style="animation-delay: 100ms">
+      <span class="pulse" aria-hidden="true"></span><span>{hero.eyebrow} · {profile.availability}</span>
+    </p>
+    <h1 id="hero-title" class="rise" style="animation-delay: 250ms">
+      <span class="sr-only">{profile.name}, {profile.title}. </span>
+      {hero.before} <em class="serif">{hero.emphasis}</em> {hero.after}
+    </h1>
+    <p class="lede serif rise" style="animation-delay: 400ms">{hero.lede}</p>
+    <div class="actions rise" style="animation-delay: 550ms">
+      <a class="btn btn-primary" href="#work">{hero.primaryCta} <span class="arrow" aria-hidden="true">→</span></a>
+      <a class="btn btn-secondary" href={profile.linkedin} rel="me">{hero.secondaryCta} <span class="arrow" aria-hidden="true">↗</span></a>
     </div>
-    <div>
-      <dt>{statusLabel}</dt>
-      <dd class="live">{availability}</dd>
-    </div>
-  </dl>
+  </div>
+
+  <figure class="photo themed rise" style="animation-delay: 350ms">
+    <picture>
+      <source srcset={`${base}images/francisco.webp`} type="image/webp" />
+      <img
+        src={`${base}images/francisco.jpg`}
+        alt={hero.photoAlt}
+        width="720"
+        height="720"
+        fetchpriority="high"
+      />
+    </picture>
+    <figcaption class="serif">{hero.photoCaption}</figcaption>
+  </figure>
 </section>
 
 <style>
-  .plate {
-    padding-top: 4.5rem;
+  .hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(2.5rem, 6vw, 4.5rem);
+    padding-block: clamp(3.5rem, 8vw, 6rem) clamp(3rem, 6vw, 4rem);
+  }
+
+  .copy {
+    flex: 999 1 34rem;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .copy > .mono {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+
+  .pulse {
+    flex: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--green);
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 55%, transparent); }
+    50% { box-shadow: 0 0 0 7px transparent; }
   }
 
   h1 {
     margin: 0;
-    font-size: clamp(3.2rem, 8vw, 6rem);
-    line-height: 0.92;
-    font-weight: 600;
-    max-width: 12ch;
+    font-size: clamp(2.6rem, 6vw, 4.5rem);
+    line-height: 1.05;
+    font-weight: 400;
+    letter-spacing: -0.03em;
   }
 
-  .role {
-    margin: 1rem 0 0;
-    color: var(--muted);
-    font-size: 1.15rem;
+  h1 em {
+    font-weight: 400;
+    color: var(--ember);
   }
 
-  dl {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin: 2rem 0 0;
-    padding-top: 1rem;
-    border-top: 1px solid var(--ink);
+  .lede {
+    margin: 0;
+    max-width: 36rem;
+    font-size: clamp(1.15rem, 1.6vw, 1.3rem);
+    line-height: 1.5;
+    color: var(--body);
   }
 
-  dt {
-    font-family: var(--cond);
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
+  .actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
   }
 
-  dd {
-    margin: 0.2rem 0 0;
-    font-size: 1rem;
+  .photo {
+    flex: 1 1 18rem;
+    max-width: 22rem;
+    margin: 0 auto;
+    padding: 0.85rem 0.85rem 1.1rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    transform: rotate(-2deg);
+    transition: transform 400ms var(--ease), background-color 350ms var(--ease);
   }
 
-  .live {
-    color: var(--amber);
-    font-weight: 600;
+  .photo:hover { transform: rotate(0deg) scale(1.02); }
+
+  .photo img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 2px;
   }
 
-  @media (max-width: 640px) {
-    dl { grid-template-columns: 1fr; }
+  figcaption {
+    margin-top: 0.75rem;
+    font-style: italic;
+    color: var(--body);
   }
 </style>

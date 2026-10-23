@@ -3,10 +3,17 @@ import "../styles/global.css";
 
 interface Props {
   title: string;
+  description: string;
   lang: "en" | "es";
 }
 
-const { title, lang } = Astro.props;
+const { title, description, lang } = Astro.props;
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith("/") ? rawBase : `${rawBase}/`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(`${base}og.png`, Astro.site);
+const enUrl = new URL(base, Astro.site);
+const esUrl = new URL(`${base}es/`, Astro.site);
 ---
 
 <!doctype html>
@@ -14,13 +21,26 @@ const { title, lang } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="es" href={esUrl} />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#f7f7f4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171612" media="(prefers-color-scheme: dark)" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Barlow:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <title>{title}</title>
     <script is:inline>
       (function () {
         var stored = null;
@@ -34,22 +54,14 @@ const { title, lang } = Astro.props;
               ? "dark"
               : "light";
         document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.classList.add("js");
       })();
     </script>
   </head>
   <body>
-    <div class="field" aria-hidden="true">
-      <span></span>
-      <span></span>
-    </div>
-    <!--
-      THESIS: A nameplate. The page is a shop drawing: who, where, available, then the record. Refuses the orbiting moon and the narrow blue column.
-      OWN-WORLD: Aluminum ground, hairline rules, Barlow, one amber mark for what is live.
-      STORY: A recruiter reads the name and availability; a lead reads the plates below.
-      FIRST VIEWPORT: Name at display scale, title under it, a spec row for place and availability. No image, no orbit.
-      FORM: Industrial nameplate, requested after the space theme was rejected.
-      FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
-    -->
     <slot />
+    <script>
+      import "../scripts/reveal.ts";
+    </script>
   </body>
 </html>

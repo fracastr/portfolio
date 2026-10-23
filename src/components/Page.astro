@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "./Header.astro";
+import Hero from "./Hero.astro";
+import CareerLog from "./CareerLog.astro";
+import Builds from "./Builds.astro";
+import Roles from "./Roles.astro";
+import HowIWork from "./HowIWork.astro";
+import Contact from "./Contact.astro";
+import type { SiteContent } from "../content/types";
+
+interface Props {
+  site: SiteContent;
+}
+
+const { site } = Astro.props;
+const isEn = site.locale === "en";
+const description = isEn
+  ? "Francisco Castro, Senior Full Stack Software Engineer in Los Ángeles, Chile. 7+ years building web apps, APIs and cloud systems. Available now for remote roles."
+  : "Francisco Castro, Senior Full Stack Software Engineer en Los Ángeles, Chile. Más de 7 años construyendo aplicaciones web, APIs y sistemas cloud. Disponible de inmediato.";
+---
+
+<BaseLayout title={`${site.profile.name} — ${site.profile.title}`} description={description} lang={site.locale}>
+  <a class="skip" href="#main">{isEn ? "Skip to content" : "Saltar al contenido"}</a>
+  <Header name={site.profile.name} email={site.profile.email} sections={site.sections} currentLocale={site.locale} />
+  <main id="main">
+    <Hero hero={site.hero} profile={site.profile} />
+    <CareerLog heading={site.sections.experience} entries={site.experience} />
+    <Builds
+      heading={site.sections.builds}
+      note={site.sections.buildsNote}
+      builds={site.builds}
+      visitLabel={isEn ? "opens the live site" : "abre el sitio publicado"}
+    />
+    <Roles heading={site.sections.projects} note={site.sections.projectsNote} projects={site.projects} />
+    <HowIWork
+      heading={site.sections.howIWork}
+      about={site.about}
+      notes={site.workNotes}
+      skillsHeading={site.sections.skills}
+      skills={site.skills}
+    />
+    <Contact
+      profile={site.profile}
+      heading={site.sections.contactHeading}
+      emphasis={site.sections.contactEmphasis}
+      label={site.sections.contact}
+      educationHeading={site.sections.education}
+      education={site.education}
+      languagesLabel={isEn ? "Languages" : "Idiomas"}
+    />
+  </main>
+</BaseLayout>
+
+<style>
+  .skip {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 30;
+    padding: 0.75rem 1rem;
+    background: var(--btn);
+    color: var(--btn-text);
+    border-radius: 4px;
+  }
+
+  .skip:focus { top: 1rem; }
+</style>

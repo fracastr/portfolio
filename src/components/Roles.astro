@@ -1,0 +1,141 @@
+---
+import type { ProjectEntry } from "../content/types";
+
+interface Props {
+  heading: string;
+  note: string;
+  projects: ProjectEntry[];
+}
+
+const { heading, note, projects } = Astro.props;
+---
+
+<section id="roles" class="shell section" aria-labelledby="roles-title">
+  <div class="section-head">
+    <h2 id="roles-title">{heading}</h2>
+    <span class="mono">{note}</span>
+  </div>
+
+  <div class="list">
+    {
+      projects.map((project, i) => (
+        <details class="role themed" data-reveal open={i === 0}>
+          <summary>
+            <span class="mono period">{project.period}</span>
+            <span class="name">
+              <strong>{project.company}</strong>
+              <span class="title">{project.role}</span>
+            </span>
+            <span class="plus" aria-hidden="true" />
+          </summary>
+          <div class="body">
+            <p class="context serif">{project.context}</p>
+            <ul class="achievements">
+              {project.achievements.map((item) => <li>{item}</li>)}
+            </ul>
+            <ul class="tags" aria-label="Stack">
+              {project.stack.map((item) => <li class="tag">{item}</li>)}
+            </ul>
+          </div>
+        </details>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .list { border-top: 1px solid var(--rule); }
+
+  .role { border-bottom: 1px solid var(--rule); }
+
+  summary {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr) 44px;
+    align-items: center;
+    gap: 1rem;
+    min-height: 4.5rem;
+    padding: 0.75rem 0.75rem;
+    cursor: pointer;
+    list-style: none;
+    transition: background-color 150ms var(--ease);
+  }
+
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { background: color-mix(in srgb, var(--elev) 60%, transparent); }
+  summary:focus-visible { outline: 2px solid var(--ember); outline-offset: -2px; }
+
+  .name {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+    font-size: 1.2rem;
+  }
+
+  .name strong { font-weight: 500; }
+  .title { color: var(--muted); font-size: 0.95rem; }
+
+  .plus {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    justify-self: center;
+  }
+
+  .plus::before,
+  .plus::after {
+    content: "";
+    position: absolute;
+    inset: 6px 0 auto;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 250ms var(--ease);
+  }
+
+  .plus::after { transform: rotate(90deg); }
+  details[open] .plus::after { transform: rotate(0deg); }
+
+  .body {
+    display: grid;
+    gap: 1rem;
+    padding: 0 0.75rem 1.75rem calc(11rem + 1.75rem);
+    max-width: 62rem;
+    animation: open 350ms var(--ease);
+  }
+
+  @keyframes open {
+    from { opacity: 0; transform: translateY(-6px); }
+  }
+
+  .context {
+    margin: 0;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: var(--body);
+  }
+
+  .achievements {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.4rem;
+    color: var(--ink);
+  }
+
+  .achievements li::marker { color: var(--ember); }
+
+  .tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  @media (max-width: 720px) {
+    summary { grid-template-columns: minmax(0, 1fr) 44px; }
+    .period { grid-column: 1 / -1; }
+    .body { padding-left: 0.75rem; }
+  }
+</style>
