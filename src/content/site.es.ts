@@ -84,8 +84,8 @@ export const es: SiteContent = {
       kind: "Producto propio · Herramienta comercial con IA",
       description: "Le das la URL de un sitio desactualizado y lo evalúa con una pauta de 19 criterios, extrae su contenido real y genera varias propuestas de rediseño con Claude, una por estilo DESIGN.md. Las publica en Vercel con una galería por cliente y deja listo el correo de propuesta, con seguimiento de clics y costo de IA por llamada.",
       stack: ["Next.js", "Claude API", "Neon Postgres", "Vercel API"],
-      cardLines: ["sitio.cl → extraer contenido", "Claude × 3 estilos DESIGN.md", "propuestas publicadas ✓"],
-      imageAlt: "Flujo de Web Builder: extraer, generar con Claude y publicar propuestas",
+      image: "webbuilder.webp",
+      imageAlt: "Trabajo de rediseño en Web Builder: pasos completados y dos propuestas generadas",
     },
     {
       id: "sbcbr-sistema",
@@ -93,8 +93,8 @@ export const es: SiteContent = {
       kind: "Cliente · Sistema interno · Servicios legales",
       description: "Reemplazo del sistema .NET de la Notaría y Conservador de Santa Bárbara: inscripciones en los 12 registros con índices, folio real, archivo digital con hash SHA-256, copias y certificados en PDF con QR de verificación, índice de escrituras y 48 plantillas notariales. En producción en GCP Santiago, con auditoría e inmutabilidad en la base de datos.",
       stack: ["NestJS", "React 19", "PostgreSQL", "Drizzle", "GCP"],
-      cardLines: ["inscripción → fojas · número · año", "certificado.pdf + QR", "verificación ✓ íntegra"],
-      imageAlt: "Flujo del sistema: inscripción, certificado PDF con QR y verificación",
+      image: "sbcbr-sistema.webp",
+      imageAlt: "Inicio del sistema de la notaría: búsqueda de trámites y accesos a escrituras, inscripciones y certificados",
     },
     {
       id: "notaria",

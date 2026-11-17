@@ -84,8 +84,8 @@ export const en: SiteContent = {
       kind: "Own product · AI sales tool",
       description: "Give it the URL of an outdated website and it scores it against a 19-point rubric, extracts the real content and generates several redesign proposals with Claude, one per DESIGN.md style. It publishes them on Vercel with a gallery per client and drafts the proposal email, with click tracking and AI cost logged per call.",
       stack: ["Next.js", "Claude API", "Neon Postgres", "Vercel API"],
-      cardLines: ["site.cl → extract content", "Claude × 3 DESIGN.md styles", "proposals published ✓"],
-      imageAlt: "Web Builder flow: extract, generate with Claude and publish proposals",
+      image: "webbuilder.webp",
+      imageAlt: "Web Builder redesign job: completed steps and two generated proposals",
     },
     {
       id: "sbcbr-sistema",
@@ -93,8 +93,8 @@ export const en: SiteContent = {
       kind: "Client · Internal system · Legal services",
       description: "Replacement for the .NET system of the Santa Bárbara notary office and real-estate registry: inscriptions across the 12 registries with indexes, folio real, a digital archive with SHA-256 hashes, PDF copies and certificates with QR verification, a deeds index and 48 notarial templates. Live on GCP Santiago, with auditing and immutability enforced in the database.",
       stack: ["NestJS", "React 19", "PostgreSQL", "Drizzle", "GCP"],
-      cardLines: ["inscription → foja · number · year", "certificate.pdf + QR", "verification ✓ intact"],
-      imageAlt: "System flow: inscription, PDF certificate with QR and verification",
+      image: "sbcbr-sistema.webp",
+      imageAlt: "Notary system home: procedure search and shortcuts to deeds, inscriptions and certificates",
     },
     {
       id: "notaria",
