@@ -33,6 +33,8 @@ export interface BuildEntry {
   stack: string[];
   /** File under public/images/work/, or undefined for a typographic card. */
   image?: string;
+  /** Lines shown on the typographic card when there is no image; the last one is highlighted. */
+  cardLines?: string[];
   imageAlt: string;
 }
 

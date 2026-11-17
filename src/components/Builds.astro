@@ -37,9 +37,9 @@ const count = String(builds.length).padStart(2, "0");
                 />
               ) : (
                 <div class="equation" role="img" aria-label={build.imageAlt}>
-                  <span>Fe in → concentrate out</span>
-                  <span>Σ feed = Σ product + Σ tailings</span>
-                  <span class="ok">balance ✓ reconciled</span>
+                  {build.cardLines?.map((line, i, all) => (
+                    <span class={i === all.length - 1 ? "ok" : undefined}>{line}</span>
+                  ))}
                 </div>
               )}
             </div>

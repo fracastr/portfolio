@@ -9,7 +9,7 @@ function assertContentShape(site: SiteContent) {
   expect(site.profile.linkedin).toContain("linkedin.com");
   expect(site.about.length).toBeGreaterThan(0);
   expect(site.projects.length).toBe(4);
-  expect(site.builds.length).toBe(7);
+  expect(site.builds.length).toBe(9);
   for (const build of site.builds) {
     expect(build.name).not.toBe("");
     expect(build.stack.length).toBeGreaterThan(0);
